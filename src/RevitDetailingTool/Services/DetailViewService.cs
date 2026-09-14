@@ -72,7 +72,7 @@ namespace RevitDetailingTool.Services
         /// </summary>
         public static ViewSection CreateCalloutForRegion(Document doc, View ownerView, ElementId viewFamilyTypeId, (XYZ Min, XYZ Max) region, int index)
         {
-            ViewSection callout = ViewSection.CreateCallout(doc, ownerView.Id, viewFamilyTypeId, region.Min, region.Max);
+            ViewSection callout = (ViewSection)ViewSection.CreateCallout(doc, ownerView.Id, viewFamilyTypeId, region.Min, region.Max);
             callout.Name = MakeUniqueName(doc, $"DETALHE {index:00}");
             callout.DetailLevel = ViewDetailLevel.Fine;
             return callout;

@@ -52,7 +52,7 @@ namespace RevitDetailingTool.Commands
                         TaskDialog.Show("Anotação Automática", "Não foram encontradas ao menos duas faces de parede cruzando a linha escolhida.");
                     }
                 }
-                catch (OperationCanceledException)
+                catch (Autodesk.Revit.Exceptions.OperationCanceledException)
                 {
                     // Usuário cancelou a seleção de pontos (Esc).
                 }
