@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Reflection;
+using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 
 namespace RevitDetailingTool
@@ -66,9 +68,28 @@ namespace RevitDetailingTool
         {
             var data = new PushButtonData(name, text, assemblyPath, className)
             {
-                ToolTip = tooltip
+                ToolTip = tooltip,
+                LargeImage = LoadImage(assemblyPath, "braves_logo_32.png"),
+                Image = LoadImage(assemblyPath, "braves_logo_16.png"),
             };
             panel.AddItem(data);
+        }
+
+        // Same 16x16/32x32 constraint as BravesBimFieldImporter's BravesApplication:
+        // Revit does not scale these, so the source PNGs must already be exactly
+        // that size (and at 96 DPI) or the icon silently fails to render.
+        private static BitmapImage? LoadImage(string assemblyPath, string fileName)
+        {
+            string path = Path.Combine(Path.GetDirectoryName(assemblyPath)!, "Resources", fileName);
+            if (!File.Exists(path)) return null;
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri(path, UriKind.Absolute);
+            image.EndInit();
+            image.Freeze();
+            return image;
         }
     }
 }
