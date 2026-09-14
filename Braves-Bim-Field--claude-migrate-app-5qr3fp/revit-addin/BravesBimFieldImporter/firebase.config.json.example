@@ -1,0 +1,4 @@
+{
+  "apiKey": "cole aqui o VITE_FIREBASE_API_KEY do seu .env",
+  "projectId": "cole aqui o VITE_FIREBASE_PROJECT_ID do seu .env"
+}

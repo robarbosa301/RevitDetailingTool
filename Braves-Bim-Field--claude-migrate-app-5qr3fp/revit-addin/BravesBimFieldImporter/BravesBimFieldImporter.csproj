@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Revit 2024 add-ins run on .NET Framework 4.8. -->
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>BravesBimFieldImporter</AssemblyName>
+    <RootNamespace>BravesBimFieldImporter</RootNamespace>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+    <!--
+      Adjust this if your Revit 2024 install isn't in the default location,
+      e.g. by passing /p:RevitInstallDir="D:\Autodesk\Revit 2024" to msbuild,
+      or editing the default below.
+    -->
+    <RevitInstallDir Condition="'$(RevitInstallDir)'==''">C:\Program Files\Autodesk\Revit 2024</RevitInstallDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="firebase.config.json.example">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Ribbon button icons (Braves logo + a small badge per function) — baked
+       into the DLL so there's nothing extra to copy when installing. -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\*.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Net.Http" />
+    <!-- PushButtonData images are WPF ImageSource (BitmapImage). -->
+    <Reference Include="PresentationCore" />
+    <Reference Include="WindowsBase" />
+
+    <!-- These ship with Revit itself — never redistribute them, hence Private=false. -->
+    <Reference Include="RevitAPI">
+      <HintPath>$(RevitInstallDir)\RevitAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>$(RevitInstallDir)\RevitAPIUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

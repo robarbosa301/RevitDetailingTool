@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, claude/migrate-app-5qr3fp]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+        env:
+          # Firebase web config isn't a secret — it ends up in the public JS
+          # bundle either way; access control lives in Firestore's own rules,
+          # not in hiding this. See README.md.
+          VITE_FIREBASE_API_KEY: "AIzaSyACwCI5YC50RX0jV4Fd3HaIDkSAyhA2Inc"
+          VITE_FIREBASE_AUTH_DOMAIN: "braves-bim-field.firebaseapp.com"
+          VITE_FIREBASE_PROJECT_ID: "braves-bim-field"
+          VITE_FIREBASE_STORAGE_BUCKET: "braves-bim-field.firebasestorage.app"
+          VITE_FIREBASE_MESSAGING_SENDER_ID: "570778724156"
+          VITE_FIREBASE_APP_ID: "1:570778724156:web:6c14855b4c88db157fa039"
+          # Same deal as the Firebase config above — a Sentry DSN only says
+          # where to send error reports, it isn't a credential that grants
+          # access to anything.
+          VITE_SENTRY_DSN: "https://694448697453d2ab69ed0beb5d972ce5@o4512078415265792.ingest.us.sentry.io/4512078573207552"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

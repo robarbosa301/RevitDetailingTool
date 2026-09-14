@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Braves BIM Field</Name>
+    <Assembly>.\BravesBimFieldImporter.dll</Assembly>
+    <AddInId>7a2b1e4d-6f3c-4a8e-9d5b-1c4f8e2a9b60</AddInId>
+    <FullClassName>BravesBimFieldImporter.BravesApplication</FullClassName>
+    <VendorId>BRAVES</VendorId>
+    <VendorDescription>Braves Engenharia</VendorDescription>
+  </AddIn>
+  <AddIn Type="Command">
+    <Name>Braves BIM Field - Importar de arquivo</Name>
+    <Assembly>.\BravesBimFieldImporter.dll</Assembly>
+    <AddInId>1edfef2c-accc-48df-a7e4-89ce2d5daf31</AddInId>
+    <FullClassName>BravesBimFieldImporter.ImportLevantamentoCommand</FullClassName>
+    <VendorId>BRAVES</VendorId>
+    <VendorDescription>Braves Engenharia</VendorDescription>
+  </AddIn>
+  <AddIn Type="Command">
+    <Name>Braves BIM Field - Importar da nuvem</Name>
+    <Assembly>.\BravesBimFieldImporter.dll</Assembly>
+    <AddInId>dcbd64bb-b384-4b9e-8906-c0f6574555d6</AddInId>
+    <FullClassName>BravesBimFieldImporter.ImportarDaNuvemCommand</FullClassName>
+    <VendorId>BRAVES</VendorId>
+    <VendorDescription>Braves Engenharia</VendorDescription>
+  </AddIn>
+</RevitAddIns>

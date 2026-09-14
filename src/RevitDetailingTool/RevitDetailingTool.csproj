@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Revit 2022-2024 usam .NET Framework 4.8. Para Revit 2025+ troque para net8.0-windows
+         e use os pacotes Nice3point.Revit.Api.* correspondentes a 2025. -->
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <Platforms>x64</Platforms>
+    <Nullable>enable</Nullable>
+    <RootNamespace>RevitDetailingTool</RootNamespace>
+    <AssemblyName>RevitDetailingTool</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Referências da Revit API via NuGet (Nice3point.Revit.Api), sem precisar do Revit
+         instalado na máquina de build. Ajuste a versão (2022/2023/2024/2025) conforme o alvo. -->
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2024.*" />
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2024.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RevitDetailingTool.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

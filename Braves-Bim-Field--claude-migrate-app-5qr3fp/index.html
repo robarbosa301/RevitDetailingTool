@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Braves BIM Field</title>
+    <!-- ?v=N cache-busts the icon: it's an unhashed file in public/, kept
+         at the same filename across deploys, so both the service worker's
+         cache and the browser's own HTTP cache would otherwise keep
+         serving old bytes forever after an icon redesign. Bump this
+         whenever the artwork changes again.
+
+         Two separate icon assets on purpose: iOS ignores alpha on home
+         screen icons (Safari flattens transparency to solid regardless),
+         so favicon/apple-touch-icon here use the solid-background
+         icon-192/512.png. Android's WebAPK install instead reads
+         manifest.webmanifest's icons array, which points at the
+         icon-*-android.png files — those are a transparent cutout of the
+         same artwork, per an explicit per-platform request. -->
+    <link rel="manifest" href="%BASE_URL%manifest.webmanifest" />
+    <link rel="icon" href="%BASE_URL%icon-192.png?v=6" />
+    <link rel="apple-touch-icon" href="%BASE_URL%icon-192.png?v=6" />
+    <meta name="theme-color" content="#0B0B0A" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Braves BIM" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+rules_version = '2';
+
+// Braves BIM Field has no login/user accounts yet — every device that knows
+// a project's code can read and write that project's data, by design (it's
+// how a tablet and a phone on the same job site sync without a sign-in
+// step). These rules do NOT change that model or add per-user isolation;
+// they only stop the wide-open "allow read, write: if true" default that
+// Firebase gives new projects in test mode, which lets anyone write to ANY
+// collection at ANY size. Scoped to exactly the two collections the app
+// actually uses (see src/storage.js), with a sanity cap on document size
+// so a single write can't blow up storage/cost.
+//
+// Real per-project isolation (so a project code only unlocks its OWN data,
+// not every project) requires adding authentication — see the app's README
+// or ask for that as a follow-up.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // project:<code>, bim-project:<code>:presence:<deviceId>, last-session,
+    // device-id, etc. — the app's generic key-value store.
+    match /kv/{key} {
+      allow read: if true;
+      // create/update are size-capped; delete has no request.resource to
+      // size-check at all (it's null), so folding delete into the same
+      // "write" rule as the size check made every delete evaluate false —
+      // silently blocking e.g. the app's "change project code" cleanup.
+      allow create, update: if request.resource.size() < 250000;
+      allow delete: if true;
+    }
+
+    // Structured per-project metadata (name, address, room count) that the
+    // Revit add-in searches by name via the REST API.
+    match /projects/{code} {
+      allow read: if true;
+      allow create, update: if request.resource.size() < 20000;
+      allow delete: if true;
+    }
+
+    // Everything else is denied outright — no other collection exists in
+    // this app, so there's nothing legitimate for a request to hit here.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

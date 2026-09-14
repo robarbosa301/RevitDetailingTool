@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Detalhamento BR</Name>
+    <Assembly>RevitDetailingTool.dll</Assembly>
+    <AddInId>f8b28e87-4325-40ca-b7c8-8aadb053c615</AddInId>
+    <FullClassName>RevitDetailingTool.App</FullClassName>
+    <VendorId>DETBR</VendorId>
+    <VendorDescription>Ferramenta de Detalhamento BR</VendorDescription>
+  </AddIn>
+</RevitAddIns>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Braves BIM Field</string>
+    <string name="title_activity_main">Braves BIM Field</string>
+    <string name="package_name">com.braves.bimfield</string>
+    <string name="custom_url_scheme">com.braves.bimfield</string>
+</resources>
