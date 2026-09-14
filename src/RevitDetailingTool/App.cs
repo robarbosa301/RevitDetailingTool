@@ -6,7 +6,7 @@ namespace RevitDetailingTool
 {
     public class App : IExternalApplication
     {
-        private const string TabName = "Detalhamento BR";
+        private const string TabName = "Braves Detailing";
         private const string PanelName = "Ferramentas";
 
         public Result OnStartup(UIControlledApplication application)
@@ -49,6 +49,13 @@ namespace RevitDetailingTool
                 "ExportarParam", "Exportar\nParâmetros",
                 typeof(Commands.ExportParametersCommand).FullName!,
                 "Extrai parâmetros de elementos por categoria e exporta para CSV.");
+
+            panel.AddSeparator();
+
+            AddPushButton(panel, assemblyPath,
+                "AbrirClaudeCode", "Abrir\nClaude Code",
+                typeof(Commands.OpenClaudeCodeCommand).FullName!,
+                "Abre uma janela do PowerShell em D:\\ROG\\BBF e inicia o Claude Code.");
 
             return Result.Succeeded;
         }
