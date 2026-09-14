@@ -6,8 +6,8 @@ namespace RevitDetailingTool
 {
     public class App : IExternalApplication
     {
-        private const string TabName = "Braves Detailing";
-        private const string PanelName = "Ferramentas";
+        private const string TabName = "Braves BIM Field";
+        private const string PanelName = "Ferramentas de Detalhamento";
 
         public Result OnStartup(UIControlledApplication application)
         {
